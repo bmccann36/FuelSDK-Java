@@ -15,11 +15,23 @@ public class Scratch {
         System.out.println("response code");
         System.out.println(res.getResponseCode());
         System.out.println(" \n MAKING REQUEST 02 \n ");
-
+        System.out.println(res.getRequestId());
+//
         String reqId = res.getRequestId();
-        // guess you don't even need the DE name ¯\_(ツ)_/¯
         ETResponse<ETDataExtensionRow> response2 = NextPageUtil.retrieve(client, reqId, ETDataExtensionRow.class);
-        System.out.println(response2);
+        System.out.println("TOTAL COUNT");
+        System.out.println(response2.getResults().toArray().length);
+        System.out.println("response code");
+        System.out.println(response2.getResponseCode());
+        System.out.println(response2.getRequestId());
+
+        System.out.println(" \n MAKING REQUEST 03 \n ");
+        ETResponse<ETDataExtensionRow> response3 = NextPageUtil.retrieve(client, reqId, ETDataExtensionRow.class);
+        System.out.println("TOTAL COUNT");
+        System.out.println(response3.getResults().toArray().length);
+        System.out.println("response code");
+        System.out.println(response3.getResponseCode());
+
 
 //        System.out.println("response code02");
 //        System.out.println(response2.getResponseCode());
