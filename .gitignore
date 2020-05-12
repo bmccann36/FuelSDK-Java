@@ -17,4 +17,4 @@ settings.xml
 # Maven
 target/
 /bin/
-/nbproject/
+/nbproject/fuelsdk.properties

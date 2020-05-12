@@ -275,6 +275,7 @@ public abstract class ETSoapObject extends ETApiObject {
 
         RetrieveRequest retrieveRequest = new RetrieveRequest();
 
+        // ! I removed this if that seems to be redundant but perhaps it is not
 //        if (continueRequest == null) {
         // if soapObjectType is specified, use it; otherwise, default
         // to the name of the internal class representing the object:
@@ -306,6 +307,7 @@ public abstract class ETSoapObject extends ETApiObject {
 
             retrieveRequest.setFilter(toFilterPart(expression));
         }
+        // ! removed else clause so that continueRequest is set
 //        }
 //        else {
         if (continueRequest != null) {
