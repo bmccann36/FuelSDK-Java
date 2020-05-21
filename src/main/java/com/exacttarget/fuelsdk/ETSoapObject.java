@@ -281,40 +281,41 @@ public abstract class ETSoapObject extends ETApiObject {
 
         RetrieveRequest retrieveRequest = new RetrieveRequest();
 
-        if (continueRequest == null) {
+//        if (continueRequest == null) {
+        // !  CUSTOMIZATION
             // if soapObjectType is specified, use it; otherwise, default
             // to the name of the internal class representing the object:
-            if (soapObjectName != null) {
-                retrieveRequest.setObjectType(soapObjectName);
-                soap = connection.getSoap("retrieve", soapObjectName);
-            } else {
-                retrieveRequest.setObjectType(internalType.getSimpleName());
-                soap = connection.getSoap("retrieve", internalType.getSimpleName());
-            }
-            retrieveRequest.getProperties().addAll(internalProperties);
-
-            if (expression.getOperator() != null) {
-                //
-                // Convert the property names to their internal counterparts:
-                //
-
-                String property = expression.getProperty();
-                if (property != null) {
-                    expression.setProperty(getInternalProperty(type, property));
-                }
-                for (ETExpression subexpression : expression.getSubexpressions()) {
-                    String p = subexpression.getProperty();
-                    if (p != null) {
-                        subexpression.setProperty(getInternalProperty(type, p));
-                    }
-                }
-
-                retrieveRequest.setFilter(toFilterPart(expression));
-            }
+        if (soapObjectName != null) {
+            retrieveRequest.setObjectType(soapObjectName);
+            soap = connection.getSoap("retrieve", soapObjectName);
         } else {
-            if (continueRequest != null) {
-                retrieveRequest.setContinueRequest(continueRequest);
+            retrieveRequest.setObjectType(internalType.getSimpleName());
+            soap = connection.getSoap("retrieve", internalType.getSimpleName());
+        }
+        retrieveRequest.getProperties().addAll(internalProperties);
+
+        if (expression.getOperator() != null) {
+            //
+            // Convert the property names to their internal counterparts:
+            //
+
+            String property = expression.getProperty();
+            if (property != null) {
+                expression.setProperty(getInternalProperty(type, property));
             }
+            for (ETExpression subexpression : expression.getSubexpressions()) {
+                String p = subexpression.getProperty();
+                if (p != null) {
+                    subexpression.setProperty(getInternalProperty(type, p));
+                }
+            }
+
+            retrieveRequest.setFilter(toFilterPart(expression));
+        }
+//        } else {
+        if (continueRequest != null) {
+            retrieveRequest.setContinueRequest(continueRequest);
+//            }
         }
 
         if (logger.isTraceEnabled()) {
